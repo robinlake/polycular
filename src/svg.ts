@@ -14,7 +14,7 @@ abstract class BoundThing<ElemType extends SVGElement> {
 
 }
 
-class Stage {
+class GraphContainer {
     elem: SVGElement;
     constructor() {
         this.elem = createSvgElement('svg', {
@@ -58,12 +58,12 @@ class BoundEdge extends BoundThing<SVGLineElement> {
         line: SVGLineElement,
     ) { super(line)}
     
-    static draw(edge: Edge) {
+    static draw(edge: Edge, boundNodeA: BoundNode, boundNodeB: BoundNode) {
         return new BoundEdge(edge, createSvgElement<SVGLineElement>('line', {
-            'x1': '10',
-            'x2': '100',
-            'y1': '10',
-            'y2': '100',
+            'x1': boundNodeA.x.toString(),
+            'x2': boundNodeB.x.toString(),
+            'y1': boundNodeA.y.toString(),
+            'y2':  boundNodeB.y.toString(),
             'stroke': 'black',
         }))
     }
@@ -72,10 +72,10 @@ class BoundEdge extends BoundThing<SVGLineElement> {
 const robin = new Node();
 const max = new Node();
 
-const stage = new Stage();
+const stage = new GraphContainer();
 const boundRobin = BoundNode.draw(robin, 10, 10);
 const boundMax = BoundNode.draw(max, 50, 50);
-const mobinrax = BoundEdge.draw(new Edge(robin,max));
+const mobinrax = BoundEdge.draw(new Edge(robin,max), boundRobin, boundMax);
 stage.mount(boundRobin);
 stage.mount(boundMax);
 stage.mount(mobinrax);
