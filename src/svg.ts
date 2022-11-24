@@ -17,7 +17,7 @@ const svg = createSvgElement('svg', {
 abstract class BoundThing<ElemType extends SVGElement> {
     constructor(public elem: ElemType) {};
 
-    mount(parent: HTMLElement) {
+    mount(parent: SVGElement) {
         parent.appendChild(this.elem);
     }
 }
@@ -46,28 +46,18 @@ class BoundEdge extends BoundThing<SVGLineElement> {
     static draw(edge: Edge) {
         return new BoundEdge(edge, createSvgElement<SVGLineElement>('line', {
             'x1': '10',
-            'x2': '10',
+            'x2': '100',
             'y1': '10',
-            'y2': '10',
+            'y2': '100',
+            'stroke': 'black',
         }))
     }
 }
 
-const circle = createSvgElement( 'circle', {
-    'cx': '10',
-    'cy': '10',
-    'r': '10',
-})
+const circle = BoundNode.draw(new Node());
+const line = BoundEdge.draw(new Edge(1,2));
+line.mount(svg);
+circle.mount(svg);
 
-const line = createSvgElement( 'line', {
-    'x1': '10',
-    'x2': '100',
-    'y1': '10',
-    'y2': '100',
-    'stroke': 'black',
-})
-
-svg.appendChild(circle);
-svg.appendChild(line);
 
 export {svg, BoundNode, BoundEdge};
