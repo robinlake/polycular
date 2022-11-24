@@ -8,17 +8,24 @@ const createSvgElement = <ElemType extends SVGElement>(tagName: string, params: 
     return elem;
 }
 
-const svg = createSvgElement('svg', {
-    'viewBox': '0 0 300 100',
-    'stroke': 'taupe',
-    'fill': 'purple',
-});
-
 abstract class BoundThing<ElemType extends SVGElement> {
     constructor(public elem: ElemType) {};
 
-    mount(parent: SVGElement) {
-        parent.appendChild(this.elem);
+
+}
+
+class Stage {
+    elem: SVGElement;
+    constructor() {
+        this.elem = createSvgElement('svg', {
+            'viewBox': '0 0 300 100',
+            'stroke': 'taupe',
+            'fill': 'purple',
+        });
+    }
+
+    mount(child: BoundThing<SVGElement>) {
+        this.elem.appendChild(child.elem);
     }
 }
 
@@ -28,10 +35,18 @@ class BoundNode extends BoundThing<SVGCircleElement> {
         circle: SVGCircleElement,
     ) { super(circle) }
 
-    static draw(node: Node) {
+    get x() {
+        return parseInt(this.elem.getAttribute('cx') || 'NaN');
+    }
+
+    get y() {
+        return parseInt(this.elem.getAttribute('cy') || 'NaN');
+    }
+
+    static draw(node: Node, x: number, y: number) {
         return new BoundNode(node, createSvgElement<SVGCircleElement>('circle', {
-            'cx': '10',
-            'cy': '10',
+            'cx': x.toString(),
+            'cy': y.toString(),
             'r': '10',
         }))
     }
@@ -40,7 +55,7 @@ class BoundNode extends BoundThing<SVGCircleElement> {
 class BoundEdge extends BoundThing<SVGLineElement> {
     constructor(
         public edge: Edge,
-        public line: SVGLineElement,
+        line: SVGLineElement,
     ) { super(line)}
     
     static draw(edge: Edge) {
@@ -54,10 +69,19 @@ class BoundEdge extends BoundThing<SVGLineElement> {
     }
 }
 
-const circle = BoundNode.draw(new Node());
-const line = BoundEdge.draw(new Edge(1,2));
-line.mount(svg);
-circle.mount(svg);
+const robin = new Node();
+const max = new Node();
+
+const stage = new Stage();
+const boundRobin = BoundNode.draw(robin, 10, 10);
+const boundMax = BoundNode.draw(max, 50, 50);
+const mobinrax = BoundEdge.draw(new Edge(robin,max));
+stage.mount(boundRobin);
+stage.mount(boundMax);
+stage.mount(mobinrax);
+// boundRobin.mount(svg);
+// boundMax.mount(svg);
+// mobinrax.mount(svg);
 
 
-export {svg, BoundNode, BoundEdge};
+export {stage, BoundNode, BoundEdge};

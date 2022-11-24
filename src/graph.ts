@@ -3,7 +3,7 @@ class Node {
 }
 
 class Edge {
-    constructor(public a: number, public b: number) {};
+    constructor(public a: Node, public b: Node) {};
 
 }
 
