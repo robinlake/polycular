@@ -1,12 +1,14 @@
-interface Node {
+interface Person {
+    name: string;
     element: SVGCircleElement;
 
 }
 
-interface Edge {
-    nodeA: Node;
-    nodeB: Node;
+interface Relationship {
+    nodeA: Person;
+    nodeB: Person;
     element: SVGLineElement;
+    type: string;
 }
 
-export {Node, Edge};
+export {Person, Relationship};

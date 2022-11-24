@@ -1,11 +1,21 @@
 import {createGraphContainer, createNode, createEdge} from './svg.js';
-// const svgContainer = document.getElementById('mysvg');
 const graphContainer = createGraphContainer();
-const robin = createNode(10, 10);
-const max = createNode(50, 50);
-const mobinRax = createEdge(robin, max);
+
+const people = [
+  createNode("robin", 10, 10), // robin
+  createNode("max", 50, 50), // max
+]
+
+const relationships = [
+    createEdge(people[0], people[1], "sexy as hell") // mobinrax
+]
+
 document.body.appendChild(graphContainer.svg);
-graphContainer.mount(mobinRax.element)
-graphContainer.mount(robin.element)
-graphContainer.mount(max.element)
-// svgContainer?.appendChild(svg);
+
+for (const relationship of relationships) {
+    graphContainer.mount(relationship.element)
+}
+
+for (const person of people) {
+    graphContainer.mount(person.element)
+}
