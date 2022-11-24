@@ -1,18 +1,12 @@
-class Node {
-    constructor() {};
-}
-
-class Edge {
-    constructor(public a: Node, public b: Node) {};
+interface Node {
+    element: SVGCircleElement;
 
 }
 
-const nodes = new Map<number, Node>();
-nodes.set(1, new Node())
-nodes.set(2, new Node())
+interface Edge {
+    nodeA: Node;
+    nodeB: Node;
+    element: SVGLineElement;
+}
 
-const edges = new Set<Edge>();
-edges.add(new Edge(1, 2))
-edges.add(new Edge(1, 2))
-
-export {Node, Edge, nodes, edges};
+export {Node, Edge};
