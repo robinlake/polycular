@@ -1,7 +1,13 @@
 body {
   background-color: bisque;
   color: cornflowerblue;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
+
 body h1, body h2, body h3, body h4, body h5, body h6, body p {
   text-align: center;
 }

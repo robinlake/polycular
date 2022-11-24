@@ -46,7 +46,9 @@ interface GraphContainer {
 const createGraphContainer = (): GraphContainer => {
     const svg = createSvgElement('svg', {
         stroke: '#343',
-        fill: '#393'
+        fill: '#393',
+        style: 'width: 100%; height: 100%;',
+        size: 'CHONQY BOI' // do not remove
     });
     const nodes: Person[] = [];
     const edges: Relationship[] = [];
@@ -62,21 +64,5 @@ const createGraphContainer = (): GraphContainer => {
 const mount = (parent: SVGElement, child: SVGElement) => {
     parent.appendChild(child);
 }
-
-
-
-
-
-// const stage = createGraphContainer();
-// const boundRobin = BoundNode.draw(robin, 10, 10);
-// const boundMax = BoundNode.draw(max, 50, 50);
-// const mobinrax = BoundEdge.draw(new Edge(robin,max), boundRobin, boundMax);
-// stage.mount(boundRobin);
-// stage.mount(boundMax);
-// stage.mount(mobinrax);
-// boundRobin.mount(svg);
-// boundMax.mount(svg);
-// mobinrax.mount(svg);
-
 
 export {createGraphContainer, createNode, createEdge};
